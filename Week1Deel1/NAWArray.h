@@ -32,4 +32,7 @@ public: // vraag 4
 private:
     // vul hier de attributen voor deze klasse in.
     // let op: hou je aan de beschrijving van de presentatie!!!
+    NAW* array[20];
+    int index = 0;
+
 };

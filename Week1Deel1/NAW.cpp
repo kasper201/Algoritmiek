@@ -54,36 +54,16 @@ void NAW::setPlaats( const std::string& woonplaatsIn)
 
 bool NAW::heeftNaam( const std::string& naamIn) const
 {
-    if(this->naam == naamIn)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return this->naam == naamIn;
+
 }
 
 bool NAW::heeftAdres( const std::string& adresIn) const
 {
-    if(this->adres == adresIn)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return this->adres == adresIn;
 }
 
 bool NAW::heeftPlaats( const std::string& woonplaatsIn) const
 {
-    if(this->woonplaats == woonplaatsIn)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return this->woonplaats == woonplaatsIn;
 }
