@@ -10,6 +10,9 @@ NAW::NAW()
 
 NAW::NAW( const std::string& naam, const std::string& adres, const std::string& woonplaats )
 {
+    setNaam(naam);
+    setAdres(adres);
+    setPlaats(woonplaats);
 }
 
 NAW::~NAW()

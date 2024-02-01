@@ -3,9 +3,11 @@
 #include "NAW.h"
 
 #include <sstream>
+#include <iostream>
 
 NAWArray::NAWArray()
 {
+    index = 0;
     for(int i = 0; i < 10; i++)
     {
         array[i] = new NAW();
@@ -16,13 +18,15 @@ NAWArray::~NAWArray()
 {
     for (int i = 0; i < 10; i++)
         delete array[i];
-
-// gooi zo nodig, zaken weg....
 }
 
 void NAWArray::add( const NAW& naw)
 {
     array[index] = new NAW(naw);
+    std::cout << "\nAdded: " << std::endl;
+    std::cout << array[index]->getNaam() << std::endl;
+    std::cout << array[index]->getAdres() << std::endl;
+    std::cout << array[index]->getPlaats() << std::endl;
     index++;
 }
 
