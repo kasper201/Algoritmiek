@@ -14,6 +14,9 @@ public: // voor vraag 1:
     virtual const std::string& getAdres()                           const;
     virtual const std::string& getPlaats()                          const;
 
+public:
+    int                        compareTo(const NAW& )              const;
+
 public: // voor vraag 1:
     virtual void               setNaam( const std::string& );
     virtual void               setAdres( const std::string& );

@@ -10,14 +10,30 @@ NAW::NAW()
 
 NAW::NAW( const std::string& naam, const std::string& adres, const std::string& woonplaats )
 {
-    setNaam(naam);
-    setAdres(adres);
-    setPlaats(woonplaats);
+    this->setNaam(naam);
+    this->setAdres(adres);
+    this->setPlaats(woonplaats);
 }
 
 NAW::~NAW()
 {
 }
+///////////////////////////////////////////////////////////////////////////////
+// comparators, part 1
+
+int NAW::compareTo(const NAW& naw) const
+{
+    if (this->woonplaats != naw.woonplaats) {
+        return (this->woonplaats < naw.woonplaats) ? -1 : 1;
+    }
+
+    if (this->naam != naw.naam) {
+        return (this->naam < naw.naam) ? -1 : 1;
+    }
+
+    return (this->adres < naw.adres) ? -1 : (this->adres > naw.adres) ? 1 : 0;
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // getters / setters

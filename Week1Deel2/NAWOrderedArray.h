@@ -18,6 +18,6 @@ public: // niet gevraagd, wel handig
     virtual void    showAll()               const;
 
 private:
-    // vul hier de attributen voor deze klasse in.
-    // let op: hou je aan de beschrijving van de presentatie!!!
+    int index = 0;
+    NAW* array[20];
 };

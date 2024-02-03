@@ -27,6 +27,7 @@ void testNAWOrderedArray()
 
     for ( int n = 0; n < 10; n++ )
     {
+        std::cout << "Adding " << n + 1 << "..." << std::endl;
         std::stringstream naam, adres, plaats;
 
         naam   << "avans "              << n + 1;
@@ -35,6 +36,9 @@ void testNAWOrderedArray()
 
         array.add( { naam.str(), adres.str(), plaats.str() } );
     }
+
+    array.showAll();
+    std::cout << "Starting find, add, remove, replace tests..." << std::endl;
 
     std::cout << array.find( {"avans 7","onderwijsboulevard 7","den bosch 7"} ) << std::endl;
     std::cout << array.find( {"avans 7","onderwijsboulevard 8","den bosch 9"} ) << std::endl;
