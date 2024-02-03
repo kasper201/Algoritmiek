@@ -32,7 +32,7 @@ int main()
     std::cout << array.zoekOpEerstePlaats( "den bosch 83" ) << std::endl;
     std::cout << array.zoekOpEersteAdresEnPlaats( "onderwijsboulevard 7", "den bosch 7" ) << std::endl;
     std::cout << array.zoekOpEersteAdresEnPlaats( "onderwijsboulevard 7", "den bosch 8" ) << std::endl;
-
+    std::cout << "Start met verwijderen: " << std::endl;
     std::cout << array.verwijderEersteMetNaam( "avans 4" )  << std::endl;
     std::cout << array.verwijderEersteMetNaam( "avans 34" ) << std::endl;
     std::cout << array.verwijderLaatsteMetNaam( "avans 5" )  << std::endl;

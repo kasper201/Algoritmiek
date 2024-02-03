@@ -86,7 +86,7 @@ int NAWArray::verwijderEersteMetNaam( const std::string& naam)
         if(array[i]->getNaam() == naam)
         {
             delete array[i];
-            for(int j = i; j < index; j++)
+            for(int j = i; j < index-1; j++)
             {
                 array[j] = array[j+1];
             }
@@ -104,7 +104,7 @@ int NAWArray::verwijderLaatsteMetNaam( const std::string& naam)
         if(array[i]->getNaam() == naam)
         {
             delete array[i];
-            for(int j = i; j < index; j++)
+            for(int j = i; j < index-1; j++)
             {
                 array[j] = array[j+1];
             }
@@ -115,19 +115,55 @@ int NAWArray::verwijderLaatsteMetNaam( const std::string& naam)
     return -1;
 }
 
-int NAWArray::verwijderAllenMetNaam( const std::string& )
-{
-    return -1; // vervang deze regel door kloppende broncode
+int NAWArray::verwijderAllenMetNaam( const std::string& naam ) {
+    for(int i = 0; i < index; i++)
+    {
+        if(array[i]->getNaam() == naam)
+        {
+            delete array[i];
+            for(int j = i; j < index-1; j++)
+            {
+                array[j] = array[j+1];
+            }
+            index--;
+        }
+    }
+    return -1;
 }
 
-int NAWArray::verwijderEersteMetAdresEnPlaats( const std::string&
-        , const std::string&  )
+int NAWArray::verwijderEersteMetAdresEnPlaats( const std::string& adres
+        , const std::string&  plaats)
 {
-    return -1; // vervang deze regel door kloppende broncode
+    for(int i = 0; i < index; i++)
+    {
+        if(array[i]->getAdres() == adres && array[i]->getPlaats() == plaats)
+        {
+            delete array[i];
+            for(int j = i; j < index-1; j++)
+            {
+                array[j] = array[j+1];
+            }
+            index--;
+            return i;
+        }
+    }
+    return -1;
 }
 
-int NAWArray::verwijderAllenMetAdresEnPlaats( const std::string&
-        , const std::string&  )
+int NAWArray::verwijderAllenMetAdresEnPlaats( const std::string& adres
+        , const std::string& plaats )
 {
-    return -1; // vervang deze regel door kloppende broncode
+    for(int i = 0; i < index; i++)
+    {
+        if(array[i]->getAdres() == adres && array[i]->getPlaats() == plaats)
+        {
+            delete array[i];
+            for(int j = i; j < index-1; j++)
+            {
+                array[j] = array[j+1];
+            }
+            index--;
+        }
+    }
+    return -1;
 }
