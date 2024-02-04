@@ -16,7 +16,7 @@ NAWArray::NAWArray()
 
 NAWArray::~NAWArray()
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < index - 1; i++)
         delete array[i];
 }
 

@@ -67,10 +67,12 @@ int NAWOrderedArray::add( const NAW& naw)
     }
     int temp;
     int temp2;
+    int indexmin1;
     for(int i = 0; i < index; i++)
     {
         temp = array[i]->compareTo(naw);
         temp2 = array[i + 1]->compareTo(naw);
+        indexmin1 = array[index - 1]->compareTo(naw);
         if(temp == 0)
             return -1;
         else if(temp == 1)
@@ -85,11 +87,14 @@ int NAWOrderedArray::add( const NAW& naw)
             index++;
             return 1;
         }
-        else if (temp == -1 && temp2 == -1)
-        {
+        else if (temp == -1 && temp2 == -1 && indexmin1 == -1) {
             array[index] = new NAW(naw.getNaam(), naw.getAdres(), naw.getPlaats());
             index++;
             return 1;
+        }
+        else if (temp == -1 && temp2 == -1 && indexmin1 == 1)
+        {
+
         }
     }
     index++;
