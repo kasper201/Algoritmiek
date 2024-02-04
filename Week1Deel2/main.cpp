@@ -42,9 +42,8 @@ void testNAWOrderedArray()
 
     std::cout << array.find( {"avans 7","onderwijsboulevard 7","den bosch 7"} ) << std::endl;
     std::cout << array.find( {"avans 7","onderwijsboulevard 8","den bosch 9"} ) << std::endl;
-    std::cout << array.add( {"avans 7","onderwijsboulevard 8","den bosch 9"} ) << std::endl;
-    array.showAll();
-//    std::cout << array.add( {"avans 7","onderwijsboulevard 8","den bosch 9"} ) << std::endl; // niet-gedefinieerd requirement...
+//    std::cout << array.add( {"avans 7","onderwijsboulevard 8","den bosch 9"} ) << std::endl;
+    std::cout << array.add( {"avans 7","onderwijsboulevard 8","den bosch 9"} ) << std::endl; // niet-gedefinieerd requirement...
     std::cout << array.remove( {"avans 7","onderwijsboulevard 8","den bosch 9"} ) << std::endl;
     std::cout << array.remove( {"avans 7","onderwijsboulevard 8","den bosch 9"} ) << std::endl;
     std::cout << array.replace( {"avans 7","onderwijsboulevard 7","den bosch 7"}

@@ -116,6 +116,8 @@ int NAWOrderedArray::remove( const NAW& verwijder)
 
 int NAWOrderedArray::replace( const NAW& cOld, const NAW& cNew )
 {
+    if(find(cNew) != -1)
+        return -1;
     int err = remove(cOld);
     if(err == -1)
         return -1;
