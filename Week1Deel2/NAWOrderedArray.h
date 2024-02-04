@@ -18,6 +18,7 @@ public: // niet gevraagd, wel handig
     virtual void    showAll()               const;
 
 private:
+    int called = 0;
     int index = 0;
     NAW* array[20];
 };

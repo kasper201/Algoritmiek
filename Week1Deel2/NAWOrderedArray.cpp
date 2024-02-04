@@ -58,8 +58,40 @@ int NAWOrderedArray::find( const NAW& input) const
 
 int NAWOrderedArray::add( const NAW& naw)
 {
-    //if(array[index - 1]->compareTo(naw) == -1)
-    array[index] = new NAW(naw.getNaam(), naw.getAdres(), naw.getPlaats());
+    if(called <= 1)
+    {
+        array[index] = new NAW(naw.getNaam(), naw.getAdres(), naw.getPlaats());
+        called++;
+        index++;
+        return 1;
+    }
+    int temp;
+    int temp2;
+    for(int i = 0; i < index; i++)
+    {
+        temp = array[i]->compareTo(naw);
+        temp2 = array[i + 1]->compareTo(naw);
+        if(temp == 0)
+            return -1;
+        else if(temp == 1)
+            continue;
+        else if(temp == -1 && temp2 == 1)
+        {
+            for(int j = index; j > i; j--)
+            {
+                array[j] = array[j - 1];
+            }
+            array[i] = new NAW(naw.getNaam(), naw.getAdres(), naw.getPlaats());
+            index++;
+            return 1;
+        }
+        else if (temp == -1 && temp2 == -1)
+        {
+            array[index] = new NAW(naw.getNaam(), naw.getAdres(), naw.getPlaats());
+            index++;
+            return 1;
+        }
+    }
     index++;
     return 1;
 }
@@ -79,7 +111,8 @@ int NAWOrderedArray::remove( const NAW& verwijder)
 
 int NAWOrderedArray::replace( const NAW& cOld, const NAW& cNew )
 {
-    return -1;
+    remove(cOld);
+    add(cNew);
 }
 
 void NAWOrderedArray::showAll() const
