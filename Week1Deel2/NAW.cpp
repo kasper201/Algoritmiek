@@ -31,12 +31,12 @@ int NAW::compareTo(const NAW& naw) const
 
     if (this->naam != naw.naam) {
         if(this->naam.length() < naw.naam.length())
-            return -1;
-        return (this->naam < naw.naam) ? -1 : 1;
+            return -2;
+        return (this->naam < naw.naam) ? -2 : 2;
     }
     if(this->adres.length() < naw.adres.length())
-        return -1;
-    return (this->adres < naw.adres) ? -1 : (this->adres > naw.adres) ? 1 : 0;
+        return -3;
+    return (this->adres < naw.adres) ? -3 : (this->adres > naw.adres) ? 3 : 0;
 }
 
 
