@@ -111,13 +111,18 @@ int NAWOrderedArray::remove( const NAW& verwijder)
 
 int NAWOrderedArray::replace( const NAW& cOld, const NAW& cNew )
 {
-    remove(cOld);
-    add(cNew);
+    int err = remove(cOld);
+    if(err == -1)
+        return -1;
+    err = add(cNew);
+    if(err == -1)
+        return -1;
+    return 0;
 }
 
 void NAWOrderedArray::showAll() const
 {
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < index; i++)
     {
         std::cout << array[i]->getNaam() << " " << array[i]->getAdres() << " " << array[i]->getPlaats() << std::endl;
     }

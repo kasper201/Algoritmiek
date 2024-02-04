@@ -153,6 +153,7 @@ int NAWArray::verwijderEersteMetAdresEnPlaats( const std::string& adres
 int NAWArray::verwijderAllenMetAdresEnPlaats( const std::string& adres
         , const std::string& plaats )
 {
+    int found = -1;
     for(int i = 0; i < index; i++)
     {
         if(array[i]->getAdres() == adres && array[i]->getPlaats() == plaats)
@@ -161,9 +162,12 @@ int NAWArray::verwijderAllenMetAdresEnPlaats( const std::string& adres
             for(int j = i; j < index-1; j++)
             {
                 array[j] = array[j+1];
+                array[j+1] = nullptr;
             }
+            found = 0;
             index--;
+            i--;
         }
     }
-    return -1;
+    return found;
 }

@@ -24,13 +24,18 @@ NAW::~NAW()
 int NAW::compareTo(const NAW& naw) const
 {
     if (this->woonplaats != naw.woonplaats) {
+        if(this->woonplaats.length() < naw.woonplaats.length())
+            return -1;
         return (this->woonplaats < naw.woonplaats) ? -1 : 1;
     }
 
     if (this->naam != naw.naam) {
+        if(this->naam.length() < naw.naam.length())
+            return -1;
         return (this->naam < naw.naam) ? -1 : 1;
     }
-
+    if(this->adres.length() < naw.adres.length())
+        return -1;
     return (this->adres < naw.adres) ? -1 : (this->adres > naw.adres) ? 1 : 0;
 }
 
