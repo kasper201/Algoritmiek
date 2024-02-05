@@ -52,12 +52,12 @@ void testNAWOrderedArray()
             , {"avans 17","onderwijsboulevard 18","den bosch 19"} ) << std::endl;
 
     array.showAll();
+    testIntOrderedArray();
 }
 
 void testIntOrderedArray()
 {
     IntOrderedArray array;
-
     for ( int n = 1; n <= 10; n++ )
     {
         if ( (n&1) == 0 )
@@ -67,4 +67,6 @@ void testIntOrderedArray()
     }
 
     array.showAll();
+
+    std::cout << "Last Element Smaller or Equal to: " << array.getLastElementSmallerOrEqualTo( 5 ) << std::endl;
 }

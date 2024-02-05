@@ -20,5 +20,7 @@ public: // niet gevraagd, wel handig
 private:
     // vul hier de attributen voor deze klasse in.
     // let op: hou je aan de beschrijving van de presentatie!!!
+    int array[20];
+    int index;
 };
 

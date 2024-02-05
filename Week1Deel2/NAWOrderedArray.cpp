@@ -28,12 +28,13 @@ NAWOrderedArray::~NAWOrderedArray()
 
 int NAWOrderedArray::find( const NAW& input) const
 {
-    int max = 10;
+    int max = index - 1;
     int min = 0;
-    int i = max / 2;
+    int i;
     int temp;
-    while(i != max)
+    while(true)
     {
+        i = (max + min) / 2;
         temp = array[i]->compareTo(input);
 
         //std::cout << i << std::endl;
@@ -41,15 +42,18 @@ int NAWOrderedArray::find( const NAW& input) const
 
         if(temp == 0)
             return i;
-        else if(temp >= 1)
+        else if(min > max)
+            return -1;
+        else
         {
-            max = i - 1;
-            i = (max + min) / 2;
-        }
-        else if(temp <= -1)
-        {
-            min = i + 1;
-            i = (max + min) / 2;
+            if(temp >= 1)
+            {
+                max = i - 1;
+            }
+            else
+            {
+                min = i + 1;
+            }
         }
     }
     return -1;
@@ -90,7 +94,7 @@ int NAWOrderedArray::add( const NAW& naw)
             }
             array[i] = new NAW(naw.getNaam(), naw.getAdres(), naw.getPlaats());
             index++;
-            return 1;
+            return i;
         }
     }
 
