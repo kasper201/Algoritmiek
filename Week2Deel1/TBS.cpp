@@ -18,24 +18,24 @@ void TBS::add(int value) {
     index++;
 }
 
+void TBS::swap(int index1, int index2) {
+    int temp = array[index1];
+    array[index1] = array[index2];
+    array[index2] = temp;
+    std::cout << "New Swap" << std::endl;
+    showAll();
+}
+
 void TBS::sort(bool ascending) {
-    int temp;
     int i = 0;
     bool sorted = false;
+    int count = 0;
     while(!sorted)
     {
-        if(array[i] > array[i+1] && ascending)
+        if((ascending ? (array[i] > array[i+1]) : (array[i] < array[i+1])))
         {
-            temp = array[i];
-            array[i] = array[i+1];
-            array[i+1] = temp;
-            i = 0;
-        }
-        else if(array[i] < array[i+1] && !ascending)
-        {
-            temp = array[i];
-            array[i] = array[i+1];
-            array[i+1] = temp;
+            count++;
+            swap(i, i+1);
             i = 0;
         }
         else
@@ -47,11 +47,14 @@ void TBS::sort(bool ascending) {
             }
         }
     }
+    std::cout << "Swaps: " << count << std::endl;
+    std::cout << "sorting " << (ascending ? "ascending" : "descending") << " completed" << std::endl;
 }
 
 void TBS::showAll() const {
     for(int i = 0; i < 10; i++)
     {
-        std::cout << array[i] << std::endl;
+        std::cout << array[i] << " ";
     }
+    std::cout << std::endl;
 }
