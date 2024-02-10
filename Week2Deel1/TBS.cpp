@@ -51,6 +51,28 @@ void TBS::sort(bool ascending) {
     std::cout << "sorting " << (ascending ? "ascending" : "descending") << " completed" << std::endl;
 }
 
+void TBS::bubbleSort() {
+    int in, out;
+    int swaps = 0;
+    for(out = index-1; out > 1; out--)
+    {
+        for(in = 0; in < out; in++)
+        {
+            if(array[in] > array[in+1])
+            {
+                swap(in, in+1);
+                swaps++;
+            }
+            if(in == 9) // in the case sorted is true, the loop will break
+            {
+                break;
+            }
+        }
+    }
+    std::cout << "sorting completed" << std::endl;
+    std::cout << "Total Swaps: " << swaps << std::endl;
+}
+
 void TBS::showAll() const {
     for(int i = 0; i < 10; i++)
     {

@@ -15,6 +15,7 @@ public:
     void add(int value);
     void swap(int index1, int index2);
     void sort(bool ascending);
+    void bubbleSort();
     void showAll() const;
 
 private:
