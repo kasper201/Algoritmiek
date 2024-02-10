@@ -1,6 +1,11 @@
 #include <iostream>
-#include "TBS.h"
 #include <random>
+#include <sstream>
+
+#include "stdafx.h"
+#include "TBS.h"
+#include "NAWArray.h"
+#include "NAW.h"
 
 void nietBubblesort()
 {
@@ -42,6 +47,28 @@ void vraag1()
     tbs.showAll();
 }
 
+void vraag2()
+{
+    NAWArray array;
+
+//    array.add( { "avans 60", "onderwijsboulevard 87", "den bosch 99" } );
+    for ( int n = 0; n < 10; n++ )
+    {
+        std::stringstream naam, adres, plaats;
+
+        naam   << "avans "              << n + 1;
+        adres  << "onderwijsboulevard " << n + 1;
+        plaats << "den bosch "          << n + 1;
+
+        array.add( { naam.str(), adres.str(), plaats.str() } );
+    }
+    array.showAll();
+    std::cout << "\nSorting" << std::endl;
+    array.sort();
+    std::cout << "\nSorted" << std::endl;
+    array.showAll();
+}
+
 int main() {
     /////////////////////////////////////////////////////////////////////////////////
     // niet bubble sort //
@@ -49,14 +76,18 @@ int main() {
     /////////////////////////////////////////////////////////////////////////////////
     // Vraag 1 //
     /*
-     *
+     * bubble sort is een O(n^2) algoritme omdat het een nested loop heeft die door de array heen gaat en voor elk element ongeveer n/2 swaps moet uitvoeren en n keer moet loopen om alle elementen te hebben gehad.
+     * O(n/2) * O(n) = O(n^2)
      */
-    vraag1();
+//    std::cout << "Vraag 1" << std::endl;
+//    vraag1();
     /////////////////////////////////////////////////////////////////////////////////
     // Vraag 2 //
     /*
-     *
+     * Dit algoritme is niet stabiel omdat het geen rekening houdt met al gesorteerde elementen.
      */
+    std::cout << "Vraag 2" << std::endl;
+    vraag2();
 
     /////////////////////////////////////////////////////////////////////////////
 

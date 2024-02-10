@@ -5,4 +5,12 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(Week2Deel1 main.cpp
         TBS.cpp
-        TBS.h)
+        TBS.h
+        NAW.cpp
+        NAW.h
+        NAWArray.cpp
+        NAWArray.h
+        stdafx.cpp
+        stdafx.h
+        targetver.h
+        )
