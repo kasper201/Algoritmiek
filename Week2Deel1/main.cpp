@@ -51,7 +51,7 @@ void vraag2()
 {
     NAWArray array;
 
-//    array.add( { "avans 60", "onderwijsboulevard 87", "den bosch 99" } );
+    array.add( { "avans 60", "onderwijsboulevard 87", "den bosch 99" } );
     for ( int n = 0; n < 10; n++ )
     {
         std::stringstream naam, adres, plaats;
@@ -72,7 +72,7 @@ void vraag2()
 int main() {
     /////////////////////////////////////////////////////////////////////////////////
     // niet bubble sort //
-    nietBubblesort();
+    //nietBubblesort();
     /////////////////////////////////////////////////////////////////////////////////
     // Vraag 1 //
     /*

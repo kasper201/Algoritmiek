@@ -8,7 +8,8 @@
 #include "targetver.h"
 
 #include <stdio.h>
-#include <tchar.h>
+//removed because it causes errors on my linux install and seems to not be used
+//#include <tchar.h>
 
 
 
