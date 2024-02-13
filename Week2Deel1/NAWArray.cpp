@@ -42,7 +42,21 @@ void NAWArray::sort() {
     {
         for (inner = 0; inner < outer; inner++)
         {
-            if (array[inner] > array[inner + 1])
+            if (array[inner]->getNaam() > array[inner + 1]->getNaam())
+            {
+                swap(inner, inner + 1);
+            }
+        }
+    }
+}
+
+void NAWArray::sortWoonplaats() {
+    int outer, inner;
+    for (outer = index - 1; outer > 1; outer--)
+    {
+        for (inner = 0; inner < outer; inner++)
+        {
+            if (array[inner]->getPlaats() > array[inner + 1]->getPlaats())
             {
                 swap(inner, inner + 1);
             }

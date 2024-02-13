@@ -16,6 +16,7 @@ public: // niet gevraagd, wel handig
 public: // vraag 2
     void          swap( int index1, int index2 );
     void          sort();
+    void          sortWoonplaats();
     void          showAll() const;
 
 private:

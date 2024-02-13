@@ -51,21 +51,25 @@ void vraag2()
 {
     NAWArray array;
 
-    array.add( { "avans 60", "onderwijsboulevard 87", "den bosch 99" } );
-    for ( int n = 0; n < 10; n++ )
-    {
-        std::stringstream naam, adres, plaats;
-
-        naam   << "avans "              << n + 1;
-        adres  << "onderwijsboulevard " << n + 1;
-        plaats << "den bosch "          << n + 1;
-
-        array.add( { naam.str(), adres.str(), plaats.str() } );
-    }
+    // add NAW objects to NAWarray
+    array.add( { "avans 7", "onderwijsboulevard 4", "den bosch 3"} );
+    array.add( { "avans 6", "onderwijsboulevard 8", "den bosch 3"} );
+    array.add( { "avans 8", "onderwijsboulevard 5", "den bosch 3"} );
+    array.add( { "avans 5", "onderwijsboulevard 2", "den bosch 5"} );
+    array.add( { "avans 0", "onderwijsboulevard 5", "den bosch 7"} );
+    array.add( { "avans 7", "onderwijsboulevard 3", "den bosch 5"} );
+    array.add( { "avans 1", "onderwijsboulevard 4", "den bosch 5"} );
+    array.add( { "avans 9", "onderwijsboulevard 6", "den bosch 9"} );
+    array.add( { "avans 5", "onderwijsboulevard 3", "den bosch 4"} );
     array.showAll();
+
     std::cout << "\nSorting" << std::endl;
     array.sort();
-    std::cout << "\nSorted" << std::endl;
+    std::cout << "\nSorted by name" << std::endl;
+    array.showAll();
+    std::cout << "\nSorting" << std::endl;
+    array.sortWoonplaats();
+    std::cout << "\nSorted by woonplaats" << std::endl;
     array.showAll();
 }
 
@@ -80,11 +84,12 @@ int main() {
      * O(n/2) * O(n) = O(n^2)
      */
 //    std::cout << "Vraag 1" << std::endl;
-//    vraag1();
+//  vraag1();
     /////////////////////////////////////////////////////////////////////////////////
     // Vraag 2 //
     /*
-     * Dit algoritme is niet stabiel omdat het geen rekening houdt met al gesorteerde elementen.
+     * Dit algoritme is stabiel omdat het rekening houdt met al gesorteerde elementen. Dit heb ik getest doormiddel van eerst te sorteren op naam en daarna op woonplaats.
+     * Hier zie je dat de elementen die al gesorteerd zijn op naam ook gesorteerd blijven op woonplaats binnen de gesorteerde elementen van woonplaats.
      */
     std::cout << "Vraag 2" << std::endl;
     vraag2();
