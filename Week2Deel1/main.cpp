@@ -47,6 +47,22 @@ void vraag1()
     tbs.showAll();
 }
 
+void vraag1Def() // met test array vanuit school
+{
+    std::cout << "Juiste richting" << std::endl;
+    TBS tbs;
+    tbs.add(7); tbs.add(3); tbs.add(8); tbs.add(1); tbs.add(2); tbs.add(5); tbs.add(4); tbs.add(6); tbs.add(9); tbs.add(0);
+    tbs.bubbleSort();
+}
+
+void vraag1Inc() // incorrecte richting (bubblesort2)
+{
+    std::cout << "verkeerde richting: " << std::endl;
+    TBS tbs;
+    tbs.add(7); tbs.add(3); tbs.add(8); tbs.add(1); tbs.add(2); tbs.add(5); tbs.add(4); tbs.add(6); tbs.add(9); tbs.add(0);
+    tbs.bubbleSort2();
+}
+
 void vraag2()
 {
     NAWArray array;
@@ -84,7 +100,9 @@ int main() {
      * O(n/2) * O(n) = O(n^2)
      */
 //    std::cout << "Vraag 1" << std::endl;
-//  vraag1();
+//    vraag1();
+    vraag1Def();
+    vraag1Inc();
     /////////////////////////////////////////////////////////////////////////////////
     // Vraag 2 //
     /*
@@ -92,7 +110,7 @@ int main() {
      * Hier zie je dat de elementen die al gesorteerd zijn op naam ook gesorteerd blijven op woonplaats binnen de gesorteerde elementen van woonplaats.
      */
     std::cout << "Vraag 2" << std::endl;
-    vraag2();
+    //vraag2();
 
     /////////////////////////////////////////////////////////////////////////////
 

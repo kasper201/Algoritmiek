@@ -34,7 +34,7 @@ void TBS::swap(int index1, int index2) {
     showAll();
 }
 
-void TBS::selectionSort() {
+void TBS::selectionSort() { //verkeerde richting
     int out, in, min;
 
     for(out = 0; out < index-1; out++) {
@@ -48,7 +48,7 @@ void TBS::selectionSort() {
     }
 }
 
-void TBS::insertionSort(int start) {
+void TBS::insertionSort(int start) { //nogmaals verkeerde richting!!
     int in, out;
     for(out = start + 1; out < index; out++) {
         int temp = rij[out];

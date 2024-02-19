@@ -83,13 +83,13 @@ int main() {
      * Het algoritme is O(n^2) omdat er nogsteeds twee loops zijn die over de array heen gaan voor comparions.
      * Enkel de swap functie wordt nu O(N) omdat deze enkel een keer per paar wordt aangeroepen en dus max N keer.
      */
-    vraag1();
+    //vraag1();
     /////////////////////////////////////////////////////////////////////////////////
     // Vraag 2 //
     /*
      * Het algoritme is O(N^2) omdat het algoritme nogsteeds twee loops heeft die over de array heen gaan en worst case all elementen van de array moeten worden vergeleken en geswapped na elke iteratie.
      */
-    vraag2();
+    //vraag2();
     /////////////////////////////////////////////////////////////////////////////////
     // Vragen met gegeven test array //
     testArray();
