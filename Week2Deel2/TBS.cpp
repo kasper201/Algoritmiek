@@ -34,26 +34,26 @@ void TBS::swap(int index1, int index2) {
     showAll();
 }
 
-void TBS::selectionSort() { //verkeerde richting
-    int out, in, min;
+void TBS::selectionSort() { //fixed selection sort
+    int out, in, max;
 
-    for(out = 0; out < index-1; out++) {
-        min = out;
-        for (in = out + 1; in < index; in++) {
-            if (rij[in] > rij[min]) {
-                min = in;
+    for(out = index - 1; out > 0; out--) {
+        max = out;
+        for (in = out - 1; in >= 0; in--) {
+            if (rij[in] > rij[max]) {
+                max = in;
             }
         }
-        swap(out, min);
+        swap(out, max);
     }
 }
 
-void TBS::insertionSort(int start) { //nogmaals verkeerde richting!!
+void TBS::insertionSort(int start) { //Verkeerde richting
     int in, out;
     for(out = start + 1; out < index; out++) {
         int temp = rij[out];
         in = out;
-        while(in > 0 && rij[in-1] >= temp) {
+        while(in > start && rij[in-1] > temp) {
             rij[in] = rij[in-1];
             --in;
         }
