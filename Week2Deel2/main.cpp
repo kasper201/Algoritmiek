@@ -38,11 +38,8 @@ void vraag2()
     }
     tbs.showAll();
 
-    int start;
-    std::cout << "Enter start index(starting at 0): ";
-    std::cin >> start;
     std::cout << "Sorting" << std::endl;
-    tbs.insertionSort(start);
+    tbs.insertionSort();
     std::cout << "Sorted" << std::endl;
     tbs.showAll();
 }
@@ -68,10 +65,7 @@ void testArray()
     tbs.add(7); tbs.add(3); tbs.add(8); tbs.add(1); tbs.add(2); tbs.add(5); tbs.add(4); tbs.add(6); tbs.add(9); tbs.add(0);
     tbs.showAll();
     std::cout << "Sorting using insertion sort" << std::endl;
-    int start;
-    std::cout << "Enter start index(starting at 0): ";
-    std::cin >> start;
-    tbs.insertionSort(start);
+    tbs.insertionSort();
     std::cout << "Sorted" << std::endl;
     tbs.showAll();
 }
@@ -83,6 +77,23 @@ int main() {
      * Het algoritme is O(n^2) omdat er nogsteeds twee loops zijn die over de array heen gaan voor comparions.
      * Enkel de swap functie wordt nu O(N) omdat deze enkel een keer per paar wordt aangeroepen en dus max N keer.
      */
+    /*
+        Test array
+        Clearing array
+        7 3 8 1 2 5 4 6 9 0
+        Sorting using selection sort
+        7 3 8 1 2 5 4 6 0 9
+        7 3 0 1 2 5 4 6 8 9
+        6 3 0 1 2 5 4 7 8 9
+        4 3 0 1 2 5 6 7 8 9
+        4 3 0 1 2 5 6 7 8 9
+        2 3 0 1 4 5 6 7 8 9
+        2 1 0 3 4 5 6 7 8 9
+        0 1 2 3 4 5 6 7 8 9
+        0 1 2 3 4 5 6 7 8 9
+        Sorted
+        0 1 2 3 4 5 6 7 8 9
+     */
     //vraag1();
     /////////////////////////////////////////////////////////////////////////////////
     // Vraag 2 //
@@ -90,6 +101,22 @@ int main() {
      * Het algoritme is O(N^2) omdat het algoritme nogsteeds twee loops heeft die over de array heen gaan en worst case all elementen van de array moeten worden vergeleken en geswapped na elke iteratie.
      */
     //vraag2();
+
+    /*
+        7 3 8 1 2 5 4 6 9 0
+        Sorting using insertion sort
+        0 7 3 8 1 2 5 4 6 9
+        0 7 3 8 1 2 5 4 6 9
+        0 7 3 8 1 2 4 5 6 9
+        0 7 3 8 1 2 4 5 6 9
+        0 7 3 8 1 2 4 5 6 9
+        0 1 7 3 8 2 4 5 6 9
+        0 1 3 7 8 2 4 5 6 9
+        0 1 3 7 8 2 4 5 6 9
+        0 1 3 7 8 2 4 5 6 9
+        Sorted
+        0 1 3 7 8 2 4 5 6 9
+     */
     /////////////////////////////////////////////////////////////////////////////////
     // Vragen met gegeven test array //
     testArray();

@@ -16,11 +16,10 @@ public:
     void swap(int index1, int index2);
     void sort(bool ascending);
     void bubbleSort();
-    void bubbleSort2();
     void showAll() const;
 
 private:
-    int array[10];
+    int array[20];
     int index;
 };
 

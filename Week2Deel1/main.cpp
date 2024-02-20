@@ -36,9 +36,13 @@ void vraag1()
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(1, 100);
 
-    for(int i = 0; i <= 10; i++)
+    /*for(int i = 0; i <= 15; i++)
     {
         tbs.add(dis(gen));
+    }*/
+    for(int i = 14; i > 0; i--)
+    {
+        tbs.add(i);
     }
     tbs.showAll();
     std::cout << "Sorting" << std::endl;
@@ -57,10 +61,10 @@ void vraag1Def() // met test array vanuit school
 
 void vraag1Inc() // incorrecte richting (bubblesort2)
 {
-    std::cout << "verkeerde richting: " << std::endl;
+    std::cout << "verkeerde richting, werkt niet!!! " << std::endl;
     TBS tbs;
     tbs.add(7); tbs.add(3); tbs.add(8); tbs.add(1); tbs.add(2); tbs.add(5); tbs.add(4); tbs.add(6); tbs.add(9); tbs.add(0);
-    tbs.bubbleSort2();
+    //tbs.bubbleSort2();
 }
 
 void vraag2()
@@ -101,8 +105,23 @@ int main() {
      */
 //    std::cout << "Vraag 1" << std::endl;
 //    vraag1();
-    vraag1Def();
-    vraag1Inc();
+    vraag1Def(); // <-- dit is de juiste!!!!!!!
+/*
+Juiste richting
+0 7 3 8 1 2 5 4 6 9
+0 1 7 3 8 2 4 5 6 9
+0 1 2 7 3 8 4 5 6 9
+0 1 2 3 7 4 8 5 6 9
+0 1 2 3 4 7 5 8 6 9
+0 1 2 3 4 5 7 6 8 9
+0 1 2 3 4 5 6 7 8 9
+0 1 2 3 4 5 6 7 8 9
+0 1 2 3 4 5 6 7 8 9
+sorting completed
+Total Swaps: 23
+ */
+
+//    vraag1Inc();
     /////////////////////////////////////////////////////////////////////////////////
     // Vraag 2 //
     /*
@@ -110,7 +129,45 @@ int main() {
      * Hier zie je dat de elementen die al gesorteerd zijn op naam ook gesorteerd blijven op woonplaats binnen de gesorteerde elementen van woonplaats.
      */
     std::cout << "Vraag 2" << std::endl;
-    //vraag2();
+    vraag2();
+    /*
+     * relevante output:
+ * avans 7 onderwijsboulevard 4 den bosch 3
+ * avans 6 onderwijsboulevard 8 den bosch 3
+ * avans 8 onderwijsboulevard 5 den bosch 3
+ * avans 5 onderwijsboulevard 2 den bosch 5
+ * avans 0 onderwijsboulevard 5 den bosch 7
+ * avans 7 onderwijsboulevard 3 den bosch 5
+ * avans 1 onderwijsboulevard 4 den bosch 5
+ * avans 9 onderwijsboulevard 6 den bosch 9
+ * avans 5 onderwijsboulevard 3 den bosch 4
+ *
+ * Sorting
+ *
+ * Sorted by name
+ * avans 0 onderwijsboulevard 5 den bosch 7
+ * avans 1 onderwijsboulevard 4 den bosch 5
+ * avans 5 onderwijsboulevard 2 den bosch 5
+ * avans 5 onderwijsboulevard 3 den bosch 4
+ * avans 6 onderwijsboulevard 8 den bosch 3
+ * avans 7 onderwijsboulevard 4 den bosch 3
+ * avans 7 onderwijsboulevard 3 den bosch 5
+ * avans 8 onderwijsboulevard 5 den bosch 3
+ * avans 9 onderwijsboulevard 6 den bosch 9
+ *
+ * Sorting
+ *
+ * Sorted by woonplaats
+ * avans 6 onderwijsboulevard 8 den bosch 3
+ * avans 7 onderwijsboulevard 4 den bosch 3
+ * avans 8 onderwijsboulevard 5 den bosch 3
+ * avans 5 onderwijsboulevard 3 den bosch 4
+ * avans 1 onderwijsboulevard 4 den bosch 5
+ * avans 5 onderwijsboulevard 2 den bosch 5
+ * avans 7 onderwijsboulevard 3 den bosch 5
+ * avans 0 onderwijsboulevard 5 den bosch 7
+ * avans 9 onderwijsboulevard 6 den bosch 9
+     */
 
     /////////////////////////////////////////////////////////////////////////////
 

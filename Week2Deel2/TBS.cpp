@@ -30,7 +30,7 @@ void TBS::swap(int index1, int index2) {
     int temp = rij[index1];
     rij[index1] = rij[index2];
     rij[index2] = temp;
-    std::cout << "New Swap" << std::endl;
+    //std::cout << "New Swap" << std::endl;
     showAll();
 }
 
@@ -48,17 +48,17 @@ void TBS::selectionSort() { //fixed selection sort
     }
 }
 
-void TBS::insertionSort(int start) { //Verkeerde richting
+void TBS::insertionSort() { //Verkeerde richting
     int in, out;
-    for(out = start + 1; out < index; out++) {
-        int temp = rij[out];
+    int temp;
+    for(out = index - 1; out > 0; out--) {
+        temp = rij[out];
         in = out;
-        while(in > start && rij[in-1] > temp) {
+        while(in > 0 && rij[in-1] > temp) {
             rij[in] = rij[in-1];
             --in;
         }
         rij[in] = temp;
-        std::cout << "New Swap" << std::endl;
         showAll();
     }
 }

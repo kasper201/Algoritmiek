@@ -22,8 +22,8 @@ void TBS::swap(int index1, int index2) {
     int temp = array[index1];
     array[index1] = array[index2];
     array[index2] = temp;
-    std::cout << "New Swap" << std::endl;
-    showAll();
+    //std::cout << "New Swap" << std::endl;
+    //showAll();
 }
 
 void TBS::sort(bool ascending) {
@@ -56,39 +56,22 @@ void TBS::bubbleSort() {
     int swaps = 0;
     for(out = 0; out < index - 1; out++)
     {
-        for(in = 0; in < index - out - 1; in++)
+        for(in = index - 1; in > 0; in--)
         {
-            if(array[in] > array[in + 1])
+            if(array[in] < array[in - 1])
             {
-                swap(in, in + 1);
+                swap(in, in - 1);
                 swaps++;
             }
         }
-    }
-    std::cout << "sorting completed" << std::endl;
-    std::cout << "Total Swaps: " << swaps << std::endl;
-}
-
-void TBS::bubbleSort2() {
-    int in, out;
-    int swaps = 0;
-    for(out = index - 1; out > 0; out--)
-    {
-        for(in = 0; in < out; in++)
-        {
-            if(array[in] > array[in + 1])
-            {
-                swap(in, in + 1);
-                swaps++;
-            }
-        }
+        showAll();
     }
     std::cout << "sorting completed" << std::endl;
     std::cout << "Total Swaps: " << swaps << std::endl;
 }
 
 void TBS::showAll() const {
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < index; i++)
     {
         std::cout << array[i] << " ";
     }

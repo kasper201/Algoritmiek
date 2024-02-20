@@ -16,7 +16,7 @@ public:
     void add(int value);
     void swap(int index1, int index2);
     void selectionSort();
-    void insertionSort(int start); // start is the index where the sorting starts + 1 since the first element is always sorted
+    void insertionSort(); // start is the index where the sorting starts + 1 since the first element is always sorted
     void showAll() const;
 
 private:
