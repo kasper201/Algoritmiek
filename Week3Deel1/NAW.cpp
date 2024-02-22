@@ -1,10 +1,5 @@
 #include "NAW.h"
 
-/*
- * copieer gegevens van week 1 met eventuele aanvullingen
- */
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // constructor / destructor
 
@@ -14,6 +9,9 @@ NAW::NAW()
 
 NAW::NAW( const std::string& naam, const std::string& adres, const std::string& woonplaats )
 {
+    setNaam(naam);
+    setAdres(adres);
+    setPlaats(woonplaats);
 }
 
 NAW::~NAW()
@@ -21,61 +19,53 @@ NAW::~NAW()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// comparators, part 1
-
-int NAW::compareTo( const NAW& ) const
-{
-    return 0; // hint vooraf: implementeer deze methode...
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
 // getters / setters
 
 const std::string& NAW::getNaam() const
 {
-    return nonsense; // neem broncode over van week 1 deel 1
+    return this->naam; // vervang deze regel door kloppende broncode
 }
 
 const std::string& NAW::getAdres() const
 {
-    return nonsense; // neem broncode over van week 1 deel 1
+    return this->adres; // vervang deze regel door kloppende broncode
 }
 
 const std::string& NAW::getPlaats() const
 {
-    return nonsense; // neem broncode over van week 1 deel 1
+    return this->woonplaats; // vervang deze regel door kloppende broncode
 }
 
-void NAW::setNaam( const std::string& )
+void NAW::setNaam( const std::string& naamIn)
 {
-// neem broncode over van week 1 deel 1
+    this->naam = naamIn;
 }
 
-void NAW::setAdres( const std::string& )
+void NAW::setAdres( const std::string& adresIn)
 {
-// neem broncode over van week 1 deel 1
+    this->adres = adresIn;
 }
 
-void NAW::setPlaats( const std::string& )
+void NAW::setPlaats( const std::string& woonplaatsIn)
 {
-// neem broncode over van week 1 deel 1
+    this->woonplaats = woonplaatsIn;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// comparators, part 2
+// comparators
 
-bool NAW::heeftNaam( const std::string& ) const
+bool NAW::heeftNaam( const std::string& naamIn) const
 {
-    return false; // neem broncode over van week 1 deel 1
+    return this->naam == naamIn;
+
 }
 
-bool NAW::heeftAdres( const std::string& ) const
+bool NAW::heeftAdres( const std::string& adresIn) const
 {
-    return false; // neem broncode over van week 1 deel 1
+    return this->adres == adresIn;
 }
 
-bool NAW::heeftPlaats( const std::string& ) const
+bool NAW::heeftPlaats( const std::string& woonplaatsIn) const
 {
-    return false; // neem broncode over van week 1 deel 1
+    return this->woonplaats == woonplaatsIn;
 }

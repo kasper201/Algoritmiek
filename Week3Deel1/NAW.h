@@ -2,21 +2,13 @@
 
 #include <string>
 
-/*
- * copieer gegevens van week 1 met eventuele aanvullingen
- */
-
 class NAW
 {
 public:
-                               NAW();
-                               NAW( const std::string&, const std::string&, const std::string& );
+    NAW();
+    NAW( const std::string&, const std::string&, const std::string& );
     virtual                   ~NAW();
 
-public: // hint vooraf:
-    int                        compareTo( const NAW& )              const;
-
-// copieer de implementaties van week 1 deel 1...
 public:
     virtual const std::string& getNaam()                            const;
     virtual const std::string& getAdres()                           const;
@@ -33,6 +25,8 @@ public:
     virtual bool               heeftPlaats( const std::string& )    const;
 
 private:
-    std::string                nonsense; // haal deze zin weg en vervang 'm door nuttige attriuten
+    std::string naam;
+    std::string adres;
+    std::string woonplaats;
 };
 

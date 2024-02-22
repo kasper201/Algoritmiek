@@ -14,11 +14,12 @@ public:
     /*
      * plaats hier de methodes voor de klasse
      */
-
 private:
     /*
      * attributen voor de klasse
      */
+    NAW naw;
+    NAWLink *next;
 
 private:
     friend class NAWLinkedList;
