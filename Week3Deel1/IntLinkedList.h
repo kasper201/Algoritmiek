@@ -26,5 +26,7 @@ private:
     /*
      * attributen voor de klasse
      */
+    int counter;
+    IntLink *first;
 };
 

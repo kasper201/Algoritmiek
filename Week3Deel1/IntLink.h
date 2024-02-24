@@ -16,6 +16,8 @@ private:
     /*
      * attributen voor de klasse
      */
+    int value;
+    IntLink *next;
 
 private:
     friend class IntLinkedList;

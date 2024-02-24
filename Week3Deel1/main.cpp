@@ -13,8 +13,8 @@ void testintLinkedList();
 
 int main()
 {
-    testNAWLinkedList();
-    //testintLinkedList();
+    //testNAWLinkedList();
+    testintLinkedList();
 
     return 0;
 }
