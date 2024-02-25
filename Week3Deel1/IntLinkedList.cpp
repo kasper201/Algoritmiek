@@ -14,10 +14,10 @@ IntLinkedList::IntLinkedList()
 IntLinkedList::~IntLinkedList()
 {
     auto* current = first;
-    while (current != nullptr)
+    for(int i = 0; i < counter; i++)
     {
         auto* next = current->next;
-        delete current;
+        //delete current;
         current = next;
     }
     first = nullptr;
@@ -77,11 +77,27 @@ int IntLinkedList::length2() const
 
 void IntLinkedList::bubbleSort()
 {
+    int in, out;
+    int swaps = 0;
+    for(out = counter - 1; out > 1; out--)
+    {
+        for(in = 0; in < out; in++)
+        {
+            if(getAt(in)->value > getAt(in + 1)->value)
+            {
+                int temp = getAt(in)->value;
+                setAt(in, getAt(in + 1)->value);
+                setAt(in + 1, temp);
+                swaps++;
+            }
+        }
+    }
 }
 
 /*
- *  geschatte snelheid van dit algoritme: O(...)
- *  onderbouwing:
+ *  geschatte snelheid van dit algoritme: O(N²)
+ *  onderbouwing: het is een bubble sort algoritme die alle waarden met elkaar vergelijkt
+ *  met behulp van twee for loops.
  *
  *
  */
@@ -90,16 +106,19 @@ void IntLinkedList::bubbleSort()
  * metingen van de duur van het sorteren...
  *
  *    aantal waarden:       duur in us:
- *        1000
- *        2000
- *        5000
- *       10000
+ *        1000              506683
+ *        2000              4455546
+ *        5000              64765134
+ *       10000              536590465 (8.94 minuten)
  *         ...
+  *      Ik ga niet verder dan 10 000 want dat duurt al bijna 9 minuten en het is duidelijk dat het algoritme O(N²) is.
  */  
 
 /*
- *  gemeten snelheid van dit algoritme: O(...)
- *  onderbouwing:
+ *  gemeten snelheid van dit algoritme: O(N³)
+ *  onderbouwing: bij een verdubbeling van de input, neemt de tijd exponentieel toe met bij een verdubbeling van de input
+ *  een factor van 8.
+ *  dit is een indicatie dat het algoritme O(N³) is.
  *
  *
  */

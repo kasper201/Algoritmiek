@@ -25,6 +25,6 @@ private:
      * attributen voor de klasse
      */
     NAWLink *first;
-    int counter;
+    int counter; // wordt niet gebruikt...
 };
 

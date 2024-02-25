@@ -13,8 +13,8 @@ void testintLinkedList();
 
 int main()
 {
-    //testNAWLinkedList();
-    testintLinkedList();
+    testNAWLinkedList();
+    //testintLinkedList();
 
     return 0;
 }
@@ -54,7 +54,7 @@ void testintLinkedList()
     IntLinkedList                           linkedList;
     std::chrono::steady_clock::time_point   start, end;
 
-    for ( int n = 20; n > 0; n-- )
+    for ( int n = 100; n > 0; n-- )
     {
         if ( (n & 1) == 0 )
             linkedList.addToStart( n+10 );

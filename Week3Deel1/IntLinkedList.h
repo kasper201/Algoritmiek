@@ -26,7 +26,7 @@ private:
     /*
      * attributen voor de klasse
      */
-    int counter;
+    int counter; // dit zit er enkel in voor length2 (zie vraag 3) ik snap namelijk niet wat ik anders daar zou moeten doen
     IntLink *first;
 };
 
