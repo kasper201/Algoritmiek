@@ -10,7 +10,7 @@ void testVraag2();
 
 int main()
 {
-    //testVraag1();
+    testVraag1();
     testVraag2();
 
     return 0;
