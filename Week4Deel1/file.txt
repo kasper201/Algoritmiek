@@ -1,0 +1,17 @@
+<bookstore>
+    <book>
+        <title>The Catcher in the Rye</title>
+        <author>J.D. Salinger</author>
+        <price>19.99</price>
+    </book>
+    <book>
+        <title>To Kill a Mockingbird</title>
+        <author>Harper Lee</author>
+        <price>24.95</price>
+    </book>
+    <book>
+        <title>1984</title>
+        <author>George Orwell</author>
+        <price>15.50</price>
+    </book>
+</bookstore>
