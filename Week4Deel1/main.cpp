@@ -2,7 +2,6 @@
 // Created by Kasper on 28/02/2024.
 //
 
-#include <iostream>
 #include "Stack.h"
 #include "readFile.h"
 
