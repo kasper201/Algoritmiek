@@ -9,5 +9,4 @@ add_executable(Week2Deel2 main.cpp
         Stack.cpp
         Stack.h
         validator.cpp
-        validator.h
-        ../Week4Deel2/opdracht1/main.cpp)
+        validator.h)
