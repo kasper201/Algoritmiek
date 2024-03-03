@@ -5,5 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(Week2Deel2 main.cpp
         "Driver info/driverinfo.cpp"
-        "Driver info/driverinfo.h"
-        ../Week4Deel1/main.cpp)
+        "Driver info/driverinfo.h")
+
+find_package(CURL REQUIRED)
+
+target_include_directories(Week2Deel2 PRIVATE ${CURL_INCLUDE_DIR})
+target_link_libraries(Week2Deel2 PRIVATE ${CURL_LIBRARY})
