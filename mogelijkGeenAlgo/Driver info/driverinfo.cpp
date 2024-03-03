@@ -101,38 +101,43 @@ int driverinfo::driver() {
         }
     }
 
-    for(int i = 0; i < familyNames.size(); i++) {
-        getTeam(familyNames[i]);
+    for(int i = 0; i < familyNames.size(); i++) { // multithreading could make this faster
+        getTeam(familyNames[i], givenNames[i]);
+        std::cout << "Team: " << teams[givenNames[i]][0] << std::endl;
     }
 
     // Print names and nationalities
     for (size_t i = 0; i < givenNames.size(); ++i) {
         fullNames.push_back(givenNames[i] + " " + familyNames[i]);
-        std::cout << i << " - Nationality: " << nationalities[i] << " full name: " << fullNames[i] << " Permanent number: " << permanentNumbers[i] << " Team: " << teams[familyNames[i]][i] << std::endl;
+        std::cout << i << " - Nationality: " << nationalities[i] << " full name: " << fullNames[i] << " Permanent number: " << permanentNumbers[i] << " Team: " << teams[givenNames[i]][0] << std::endl;
     }
 
     return 0;
 }
 
-void driverinfo::getTeam(std::string driver) {
+void driverinfo::getTeam(std::string driver, std::string givenName) {
     std::replace(driver.begin(), driver.end(), ' ', '_'); // Replace spaces with underscores
     std::string url = "http://ergast.com/api/f1/drivers/" + driver + "/constructors.json"; // get the team of the driver and team country
     std::cout << "URL: " << url << std::endl;
     std::string response = getRequest(url); // get the response from the API
     std::cout << response << std::endl;
 
-    std::ofstream file("temp.json", std::ios::app);
-    file << response;
-    file.close();
+    // Correct JSON for readability
+    std::string correctedJson = correctJson(response);
 
-    std::ifstream fileTemp("temp.json");
-    if (!fileTemp.is_open()) {
+    std::ofstream fileSave("temp.json", std::ios::trunc);
+    fileSave << correctedJson;
+    fileSave.close();
+
+    // Read JSON data from file
+    std::ifstream file("temp.json");
+    if (!file.is_open()) {
         std::cerr << "Error opening file" << std::endl;
         return;
     }
 
     std::stringstream buffer;
-    buffer << fileTemp.rdbuf();
+    buffer << file.rdbuf();
     std::string jsonData = buffer.str();
 
     // Parse JSON
@@ -140,18 +145,47 @@ void driverinfo::getTeam(std::string driver) {
     while (stream) {
         std::string token;
         stream >> token;
+        // Check for the "name" key within the "Constructors" object
         if (token == "\"name\":") {
             std::string team;
             stream >> std::quoted(team);
-            teams[driver].push_back(team);
-            std::cout << "Team: " << team << std::endl;
-            std::cout << "Team: " << teams[driver].back() << std::endl;
+            teams[givenName].push_back(team);
+            std::cout << "Team: " << teams[givenName].back() << std::endl;
         }
     }
-    fileTemp.close();
 
-    for (size_t i = 0; i < teams[driver].size(); i++) {
-        std::cout << "Team: " << teams[driver][i] << std::endl;
-    };
-    std::remove("temp.json");
+//    for (size_t i = 0; i < teams[givenName].size(); i++) {
+//        std::cout << "Team: " << teams[givenName][i] << std::endl;
+//    };
+}
+
+std::string driverinfo::correctJson(const std::string& input) {
+    std::istringstream stream(input);
+    std::ostringstream beautified;
+
+    int indentLevel = 0;
+    char ch;
+
+    while (stream.get(ch)) {
+        switch (ch) {
+            case '{':
+            case '[':
+                beautified << ch << "\n" << std::setw(++indentLevel * 2) << "";
+                break;
+            case '}':
+            case ']':
+                beautified << "\n" << std::setw(--indentLevel * 2) << "" << ch;
+                break;
+            case ',':
+                beautified << ch << "\n" << std::setw(indentLevel * 2) << "";
+                break;
+            case ':':
+                beautified << ": ";
+                break;
+            default:
+                beautified << ch;
+        }
+    }
+
+    return beautified.str();
 }

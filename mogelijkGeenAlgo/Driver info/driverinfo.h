@@ -16,7 +16,8 @@ public:
     int driver();
 private:
     std::string getRequest(const std::string &url);
-    void getTeam(std::string driver);
+    void getTeam(std::string driver, std::string givenName);
+    static std::string correctJson(const std::string& input);
 
 private:
     std::map<std::string, std::vector<std::string>> teams;
