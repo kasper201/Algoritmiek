@@ -115,27 +115,43 @@ int driverinfo::driver() {
 }
 
 void driverinfo::getTeam(std::string driver) {
-    std::replace(driver.begin(), driver.end(), ' ', '_');
-    std::string url = "http://ergast.com/api/f1/drivers/" + driver + "/constructors.json";
+    std::replace(driver.begin(), driver.end(), ' ', '_'); // Replace spaces with underscores
+    std::string url = "http://ergast.com/api/f1/drivers/" + driver + "/constructors.json"; // get the team of the driver and team country
     std::cout << "URL: " << url << std::endl;
-    std::string response = getRequest(url);
+    std::string response = getRequest(url); // get the response from the API
     std::cout << response << std::endl;
 
-    std::istringstream stream(response);
+    std::ofstream file("temp.json", std::ios::app);
+    file << response;
+    file.close();
+
+    std::ifstream fileTemp("temp.json");
+    if (!fileTemp.is_open()) {
+        std::cerr << "Error opening file" << std::endl;
+        return;
+    }
+
+    std::stringstream buffer;
+    buffer << fileTemp.rdbuf();
+    std::string jsonData = buffer.str();
+
+    // Parse JSON
+    std::istringstream stream(jsonData);
     while (stream) {
         std::string token;
         stream >> token;
         if (token == "\"name\":") {
             std::string team;
-            stream >> std::ws;
             stream >> std::quoted(team);
             teams[driver].push_back(team);
             std::cout << "Team: " << team << std::endl;
             std::cout << "Team: " << teams[driver].back() << std::endl;
         }
     }
+    fileTemp.close();
 
     for (size_t i = 0; i < teams[driver].size(); i++) {
         std::cout << "Team: " << teams[driver][i] << std::endl;
     };
+    std::remove("temp.json");
 }
