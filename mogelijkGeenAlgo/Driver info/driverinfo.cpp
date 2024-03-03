@@ -78,7 +78,7 @@ int driverinfo::driver() {
 
     // Parse JSON
     std::istringstream stream(jsonData);
-    std::vector<std::string> givenNames, familyNames, nationalities, permanentNumbers, fullNames;
+    std::vector<std::string> givenNames, familyNames, nationalities, permanentNumbers, fullNames, driverIds;
     while (stream) {
         std::string token;
         stream >> token;
@@ -98,24 +98,28 @@ int driverinfo::driver() {
             std::string permanentNumber;
             stream >> std::quoted(permanentNumber);
             permanentNumbers.push_back(permanentNumber);
+        } else if(token == "\"driverId\":") {
+            std::string driverId;
+            stream >> std::quoted(driverId);
+            driverIds.push_back(driverId);
         }
     }
 
     for(int i = 0; i < familyNames.size(); i++) { // multithreading could make this faster
-        getTeam(familyNames[i], givenNames[i]);
-        std::cout << "Team: " << teams[givenNames[i]][0] << std::endl;
+        getTeam(driverIds[i]);
+        std::cout << "Team: " << teams[driverIds[i]][0] << std::endl;
     }
 
     // Print names and nationalities
     for (size_t i = 0; i < givenNames.size(); ++i) {
         fullNames.push_back(givenNames[i] + " " + familyNames[i]);
-        std::cout << i << " - Nationality: " << nationalities[i] << " full name: " << fullNames[i] << " Permanent number: " << permanentNumbers[i] << " Team: " << teams[givenNames[i]][0] << std::endl;
+        std::cout << i << " - Nationality: " << nationalities[i] << " full name: " << fullNames[i] << " Permanent number: " << permanentNumbers[i] << " Team: " << teams[driverIds[i]][0] << std::endl;
     }
 
     return 0;
 }
 
-void driverinfo::getTeam(std::string driver, std::string givenName) {
+void driverinfo::getTeam(std::string driver) {
     std::replace(driver.begin(), driver.end(), ' ', '_'); // Replace spaces with underscores
     std::string url = "http://ergast.com/api/f1/drivers/" + driver + "/constructors.json"; // get the team of the driver and team country
     std::cout << "URL: " << url << std::endl;
@@ -149,14 +153,17 @@ void driverinfo::getTeam(std::string driver, std::string givenName) {
         if (token == "\"name\":") {
             std::string team;
             stream >> std::quoted(team);
-            teams[givenName].push_back(team);
-            std::cout << "Team: " << teams[givenName].back() << std::endl;
+            teams[driver].push_back(team);
+            std::cout << "Team: " << teams[driver].back() << std::endl;
         }
     }
 
-//    for (size_t i = 0; i < teams[givenName].size(); i++) {
-//        std::cout << "Team: " << teams[givenName][i] << std::endl;
+//    for (size_t i = 0; i < teams[driver].size(); i++) {
+//        std::cout << "Team: " << teams[driver][i] << std::endl;
 //    };
+
+    file.close();
+    remove("temp.json");
 }
 
 std::string driverinfo::correctJson(const std::string& input) {
