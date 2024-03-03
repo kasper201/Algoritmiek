@@ -1,4 +1,5 @@
 #include "driverinfo.h"
+#include "getImage.h"
 
 #include <iostream>
 #include <iomanip>
@@ -11,7 +12,7 @@
 std::string requestPath()
 {
     std::string path;
-    std::cout << "Enter the path to the JSON file: ";
+    std::cout << "Enter the path to the JSON file with driver info: ";
     std::cin >> path;
     return path;
 }
@@ -63,7 +64,7 @@ int driverinfo::driver() {
     // Specify the path to your JSON file
     std::string filePath = "C:\\Users\\Kasper\\Downloads\\Agoritmiek\\.idea\\httpRequests\\2024-02-26T141655.200.json";
 
-    filePath = requestPath();
+    filePath = requestPath(); // TODO: change this to be more dynamic
 
     // Read JSON data from file
     std::ifstream file(filePath);
@@ -113,6 +114,7 @@ int driverinfo::driver() {
     // Print names and nationalities
     for (size_t i = 0; i < givenNames.size(); ++i) {
         fullNames.push_back(givenNames[i] + " " + familyNames[i]);
+        driverImage(familyNames[i]);
         std::cout << i << " - Nationality: " << nationalities[i] << " full name: " << fullNames[i] << " Permanent number: " << permanentNumbers[i] << " Team: " << teams[driverIds[i]][0] << std::endl;
     }
 
@@ -129,12 +131,12 @@ void driverinfo::getTeam(std::string driver) {
     // Correct JSON for readability
     std::string correctedJson = correctJson(response);
 
-    std::ofstream fileSave("temp.json", std::ios::trunc);
+    std::ofstream fileSave("tempDriverTeam.json", std::ios::trunc);
     fileSave << correctedJson;
     fileSave.close();
 
     // Read JSON data from file
-    std::ifstream file("temp.json");
+    std::ifstream file("tempDriverTeam.json");
     if (!file.is_open()) {
         std::cerr << "Error opening file" << std::endl;
         return;
@@ -163,7 +165,7 @@ void driverinfo::getTeam(std::string driver) {
 //    };
 
     file.close();
-    remove("temp.json");
+    remove("tempDriverTeam.json");
 }
 
 std::string driverinfo::correctJson(const std::string& input) {
@@ -195,4 +197,11 @@ std::string driverinfo::correctJson(const std::string& input) {
     }
 
     return beautified.str();
+}
+
+int driverinfo::driverImage(std::string driver) {
+    std::string url = "https://media.formula1.com/content/dam/fom-website/drivers/2024Drivers/" + driver + ".jpg.img.1920.medium.jpg/1708344264039.jpg"; // TODO: possibly change this to be more dynamic with the years
+    getImage image;
+    image.getTheImage(url, driver);
+    return 0;
 }
