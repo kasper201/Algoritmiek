@@ -8,6 +8,11 @@
 #include <iostream>
 #include <curl/curl.h>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <vector>
+#include <cctype>
 
 
 CircuitInfo::CircuitInfo() {
@@ -19,13 +24,92 @@ CircuitInfo::~CircuitInfo() {
 }
 
 int CircuitInfo::circuit() {
-    std::string circuit = "Saudi Arabia";
-    // TODO: get all circuits in the order of the season
-    if(getCircuit(circuit)) {
-        std::cout << "Circuit not found" << std::endl;
+    std::string url = "https://ergast.com/api/f1/2023/circuits.json";
+    std::string response = getRequest(url);
+    std::cout << "Response: " << response << std::endl;
+
+    // Correct JSON for readability
+    std::string correctedJson = correctJson(response);
+
+    std::ofstream fileSave("tempCircuit.json", std::ios::trunc);
+    fileSave << correctedJson;
+    fileSave.close();
+
+    // Read JSON data from file
+    std::ifstream file("tempCircuit.json");
+    if (!file.is_open()) {
+        std::cerr << "Error opening file" << std::endl;
+    }
+
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    std::string data = buffer.str();
+
+    // Parse JSON
+    std::istringstream stream(data);
+    std::vector<std::string> circuit, country;
+    while(stream) {
+        std::string token;
+        stream >> token;
+        if(token == "\"circuitId\":") {
+            std::string circuitId;
+            stream >> std::quoted(circuitId);
+            circuit.push_back(circuitId);
+            std::cout << "Circuit ID: " << circuitId << std::endl;
+        } else if(token == "\"country\":") {
+            std::string countryName;
+            stream >> std::quoted(countryName);
+            country.push_back(countryName);
+            std::cout << "Country: " << countryName << std::endl;
+        }
+    }
+    for(int i = 0; i < circuit.size(); i++) {
+        std::string correctedCircuit = correctCircuit(circuit[i]);
+        circuitImage(correctedCircuit);
+
+        std::string circuitLength = findCircuitLength(circuit[i]);
     }
 
     return 0;
+}
+
+std::string CircuitInfo::findInHtml(std::string html) {
+    std::string extracted_data;
+    // Find the position of the starting and ending substrings
+    size_t start_pos = html.find("<p class=\"f1-bold--stat\">");
+    size_t end_pos = html.find("<span class=\"misc--label\">");
+
+    // Check if both substrings are found
+    if (start_pos != std::string::npos && end_pos != std::string::npos) {
+        // Extract the data between the substrings
+        extracted_data = html.substr(start_pos + sizeof("<p class=\"misc--label\">Circuit Length</p><p class=\"f1-bold--stat\">") - 1,
+                                                  end_pos - (start_pos + sizeof("<p class=\"f1-bold--stat\">") - 1));
+
+        std::cout << "Extracted data: " << extracted_data << std::endl;
+    } else {
+        std::cout << "Substrings not found in the input string." << std::endl;
+    }
+    return extracted_data;
+}
+
+std::string capitaliseFirstLetter(const std::string& input) {
+    if (!input.empty()) {
+        std::string result = input;
+        result[0] = std::toupper(static_cast<unsigned char>(result[0]));
+
+        return result;
+    } else {
+        return input;  // Return empty string if input is empty
+    }
+}
+
+std::string CircuitInfo::findCircuitLength(std::string circuitId) { // TODO: circuits are not standardised on the F1 website
+    std::string capitalisedId = capitaliseFirstLetter(circuitId);
+    std::string circuitUrl = "https://www.formula1.com/en/racing/2023/" + capitalisedId + "/Circuit.html";
+    std::string html = getRequest(circuitUrl);
+    std::cout << "Circuit URL: " << circuitUrl << std::endl;
+
+    return findInHtml(html);
 }
 
 size_t WriteCallbackCircuit(void* contents, size_t size, size_t nmemb, std::string* output) // function to write the response from the API
@@ -68,19 +152,40 @@ std::string CircuitInfo::correctCircuit(const std::string& input) { // function 
     return output;
 }
 
-int CircuitInfo::getCircuit(std::string circuit) {
-    std::string correctedCircuit = correctCircuit(circuit);
-    std::string url = "https://ergast.com/api/f1/circuits/" + correctedCircuit + ".json";
-    std::cout << "URL: " << url << std::endl;
-    std::string response = getRequest(url);
-
-    circuitImage(correctedCircuit); // retrieve the image of the circuit
-    return 0;
-}
-
 int CircuitInfo::circuitImage(std::string circuit) {
     std::string url = "https://media.formula1.com/image/upload/f_auto/q_auto/v1677244985/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/" + circuit + "_Circuit.png.transform/7col/image.png";
     getImage image;
     image.getTheImage(url, circuit);
     return 0;
+}
+
+std::string CircuitInfo::correctJson(const std::string& input) {
+    std::istringstream stream(input);
+    std::ostringstream beautified;
+
+    int indentLevel = 0;
+    char ch;
+
+    while (stream.get(ch)) {
+        switch (ch) {
+            case '{':
+            case '[':
+                beautified << ch << "\n" << std::setw(++indentLevel * 2) << "";
+                break;
+            case '}':
+            case ']':
+                beautified << "\n" << std::setw(--indentLevel * 2) << "" << ch;
+                break;
+            case ',':
+                beautified << ch << "\n" << std::setw(indentLevel * 2) << "";
+                break;
+            case ':':
+                beautified << ": ";
+                break;
+            default:
+                beautified << ch;
+        }
+    }
+
+    return beautified.str();
 }

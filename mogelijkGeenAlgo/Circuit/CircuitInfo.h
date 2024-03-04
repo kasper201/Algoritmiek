@@ -11,10 +11,13 @@ public:
     CircuitInfo();
     ~CircuitInfo();
     int circuit();
+    std::string findInHtml(std::string html);
+    std::string findCircuitLength(std::string circuit);
     std::string getRequest(const std::string &url);
     std::string correctCircuit(const std::string& input);
-    int getCircuit(std::string circuit);
     int circuitImage(std::string circuitC); // corrected circuit
+private:
+    static std::string correctJson(const std::string& input);
 };
 
 
