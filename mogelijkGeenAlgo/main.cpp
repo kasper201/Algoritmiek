@@ -42,6 +42,8 @@ int main() {
     int year = 2023;
     driverinfo.driver(year);
     circuitInfo.circuit(year);
-    results.results(year, 9);
+    for(int i = 0; i < getAmountOfRaces(year); i++) {
+        results.results(year, i);
+    }
     return 0;
 }
