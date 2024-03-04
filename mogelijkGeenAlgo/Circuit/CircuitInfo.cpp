@@ -78,34 +78,23 @@ int CircuitInfo::circuit() {
     return 0;
 }
 
-std::string CircuitInfo::findInHtml(std::string html) { // find the length of the circuit in the html page of the circuit on the F1 website
+std::string CircuitInfo::findInHtml(std::string html) { // find the length of the circuit in the html page of the circuit on the F1 website in km
     std::string extracted_data;
     // Find the position of the starting and ending substrings
-    size_t start_pos = html.find("<p class=\"f1-bold--stat\">");
+    size_t start_pos = html.find("<p class=\"misc--label\">Circuit Length</p>\n                                    <p class=\"f1-bold--stat\">");
     size_t end_pos = html.find("<span class=\"misc--label\">");
 
     // Check if both substrings are found
     if (start_pos != std::string::npos && end_pos != std::string::npos) {
         // Extract the data between the substrings
-        extracted_data = html.substr(start_pos + sizeof("<p class=\"misc--label\">Circuit Length</p><p class=\"f1-bold--stat\">") - 1,
-                                                  end_pos - (start_pos + sizeof("<p class=\"f1-bold--stat\">") - 1));
+        extracted_data = html.substr(start_pos + sizeof("<p class=\"misc--label\">Circuit Length</p>\n                                    <p class=\"f1-bold--stat\">") - 1,
+                                                  end_pos - (start_pos + sizeof("<p class=\"misc--label\">Circuit Length</p>\n                                    <p class=\"f1-bold--stat\">") - 1));
 
         std::cout << "Extracted data: " << extracted_data << std::endl;
     } else {
         std::cout << "Substrings not found in the input string." << std::endl;
     }
     return extracted_data;
-}
-
-std::string capitaliseFirstLetter(const std::string& input) {
-    if (!input.empty()) {
-        std::string result = input;
-        result[0] = std::toupper(static_cast<unsigned char>(result[0]));
-
-        return result;
-    } else {
-        return input;  // Return empty string if input is empty
-    }
 }
 
 std::string CircuitInfo::getF1CircuitName(int circuitNr, int year)
