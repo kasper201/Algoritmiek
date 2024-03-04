@@ -9,7 +9,11 @@ add_executable(Week2Deel2 main.cpp
         Circuit/CircuitInfo.cpp
         Circuit/CircuitInfo.h
         getImage.cpp
-        getImage.h)
+        getImage.h
+        results/Results.cpp
+        results/Results.h
+        htmlRequest.cpp
+        htmlRequest.h)
 
 find_package(CURL REQUIRED)
 

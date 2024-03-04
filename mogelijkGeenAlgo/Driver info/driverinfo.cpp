@@ -1,5 +1,6 @@
 #include "driverinfo.h"
 #include "getImage.h"
+#include "htmlRequest.h"
 
 #include <iostream>
 #include <iomanip>
@@ -19,45 +20,10 @@ std::string requestPath()
 
 driverinfo::driverinfo()
 {
-
 }
 
 driverinfo::~driverinfo()
 {
-}
-
-size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* output)
-{
-    size_t totalSize = size * nmemb;
-    output->append((char*)contents, totalSize);
-    return totalSize;
-}
-
-std::string driverinfo::getRequest(const std::string &url) {
-    CURL* curl;
-    CURLcode res;
-
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    curl = curl_easy_init();
-
-    std::string response;
-
-    if(curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-        res = curl_easy_perform(curl);
-
-        if(res != CURLE_OK) {
-            std::cerr << "Error: " << curl_easy_strerror(res) << std::endl;
-        }
-
-        curl_easy_cleanup(curl);
-    }
-
-    curl_global_cleanup();
-
-    return response;
 }
 
 int driverinfo::driver() {
@@ -122,10 +88,11 @@ int driverinfo::driver() {
 }
 
 void driverinfo::getTeam(std::string driver) {
+    htmlRequest request;
     std::replace(driver.begin(), driver.end(), ' ', '_'); // Replace spaces with underscores
     std::string url = "http://ergast.com/api/f1/drivers/" + driver + "/constructors.json"; // get the team of the driver and team country
     std::cout << "URL: " << url << std::endl;
-    std::string response = getRequest(url); // get the response from the API
+    std::string response = request.getRequest(url); // get the response from the API
     std::cout << response << std::endl;
 
     // Correct JSON for readability

@@ -4,15 +4,14 @@
 
 #include "CircuitInfo.h"
 #include "getImage.h"
+#include "htmlRequest.h"
 
 #include <iostream>
-#include <curl/curl.h>
 #include <algorithm>
 #include <fstream>
 #include <sstream>
 #include <iomanip>
 #include <vector>
-#include <cctype>
 
 
 CircuitInfo::CircuitInfo() {
@@ -24,8 +23,9 @@ CircuitInfo::~CircuitInfo() {
 }
 
 int CircuitInfo::circuit() {
+    htmlRequest request;
     std::string url = "https://ergast.com/api/f1/2023/circuits.json";
-    std::string response = getRequest(url);
+    std::string response = request.getRequest(url);
     std::cout << "Response: " << response << std::endl;
 
     // Correct JSON for readability
@@ -99,9 +99,10 @@ std::string CircuitInfo::findInHtml(std::string html) { // find the length of th
 
 std::string CircuitInfo::getF1CircuitName(int circuitNr, int year)
 {
+    htmlRequest request;
     std::string circuitName;
     std::string url = "https://www.formula1.com/en/racing/" + std::to_string(year) + ".html";
-    std::string html = getRequest(url);
+    std::string html = request.getRequest(url);
     //std::cout << "Response: " << html << std::endl;
 
     size_t start_pos = 0;
@@ -119,48 +120,15 @@ std::string CircuitInfo::getF1CircuitName(int circuitNr, int year)
 }
 
 std::string CircuitInfo::findCircuitLength(int circuitNr, int year) {
+    htmlRequest request;
     std::cout << "Circuit number: " << circuitNr << std::endl;
     std::string circuitName = getF1CircuitName(circuitNr, year);
     std::cout << "Circuit name: " << circuitName << std::endl;
     std::string circuitUrl = "https://www.formula1.com/en/racing/2023/" + circuitName + "/Circuit.html";
-    std::string html = getRequest(circuitUrl);
+    std::string html = request.getRequest(circuitUrl);
     std::cout << "Circuit URL: " << circuitUrl << std::endl;
 
     return findInHtml(html);
-}
-
-size_t WriteCallbackCircuit(void* contents, size_t size, size_t nmemb, std::string* output) // function to write the response from the API
-{
-    size_t totalSize = size * nmemb;
-    output->append((char*)contents, totalSize);
-    return totalSize;
-}
-
-std::string CircuitInfo::getRequest(const std::string &url) {
-    CURL* curl;
-    CURLcode res;
-
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    curl = curl_easy_init();
-
-    std::string response;
-
-    if(curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallbackCircuit);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-        res = curl_easy_perform(curl);
-
-        if(res != CURLE_OK) {
-            std::cerr << "Error: " << curl_easy_strerror(res) << std::endl;
-        }
-
-        curl_easy_cleanup(curl);
-    }
-
-    curl_global_cleanup();
-
-    return response;
 }
 
 std::string CircuitInfo::correctCircuit(const std::string& input) { // function to replace spaces with underscores
