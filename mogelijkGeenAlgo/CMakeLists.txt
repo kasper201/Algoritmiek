@@ -13,7 +13,9 @@ add_executable(Week2Deel2 main.cpp
         results/Results.cpp
         results/Results.h
         htmlRequest.cpp
-        htmlRequest.h)
+        htmlRequest.h
+        CorrectJson.cpp
+        CorrectJson.h)
 
 find_package(CURL REQUIRED)
 

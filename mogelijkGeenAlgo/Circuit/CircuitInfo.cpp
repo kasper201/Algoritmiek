@@ -4,7 +4,6 @@
 
 #include "CircuitInfo.h"
 #include "getImage.h"
-#include "htmlRequest.h"
 
 #include <iostream>
 #include <algorithm>
@@ -23,13 +22,12 @@ CircuitInfo::~CircuitInfo() {
 }
 
 int CircuitInfo::circuit() {
-    htmlRequest request;
     std::string url = "https://ergast.com/api/f1/2023/circuits.json";
     std::string response = request.getRequest(url);
     std::cout << "Response: " << response << std::endl;
 
     // Correct JSON for readability
-    std::string correctedJson = correctJson(response);
+    std::string correctedJson = correctJson.correctJson(response);
 
     std::ofstream fileSave("tempCircuit.json", std::ios::trunc);
     fileSave << correctedJson;
@@ -99,7 +97,6 @@ std::string CircuitInfo::findInHtml(std::string html) { // find the length of th
 
 std::string CircuitInfo::getF1CircuitName(int circuitNr, int year)
 {
-    htmlRequest request;
     std::string circuitName;
     std::string url = "https://www.formula1.com/en/racing/" + std::to_string(year) + ".html";
     std::string html = request.getRequest(url);
@@ -120,7 +117,6 @@ std::string CircuitInfo::getF1CircuitName(int circuitNr, int year)
 }
 
 std::string CircuitInfo::findCircuitLength(int circuitNr, int year) {
-    htmlRequest request;
     std::cout << "Circuit number: " << circuitNr << std::endl;
     std::string circuitName = getF1CircuitName(circuitNr, year);
     std::cout << "Circuit name: " << circuitName << std::endl;
@@ -142,35 +138,4 @@ int CircuitInfo::circuitImage(std::string circuit) {
     getImage image;
     image.getTheImage(url, circuit);
     return 0;
-}
-
-std::string CircuitInfo::correctJson(const std::string& input) {
-    std::istringstream stream(input);
-    std::ostringstream beautified;
-
-    int indentLevel = 0;
-    char ch;
-
-    while (stream.get(ch)) {
-        switch (ch) {
-            case '{':
-            case '[':
-                beautified << ch << "\n" << std::setw(++indentLevel * 2) << "";
-                break;
-            case '}':
-            case ']':
-                beautified << "\n" << std::setw(--indentLevel * 2) << "" << ch;
-                break;
-            case ',':
-                beautified << ch << "\n" << std::setw(indentLevel * 2) << "";
-                break;
-            case ':':
-                beautified << ": ";
-                break;
-            default:
-                beautified << ch;
-        }
-    }
-
-    return beautified.str();
 }

@@ -30,7 +30,7 @@ int driverinfo::driver() {
     // Specify the path to your JSON file
     std::string filePath = "C:\\Users\\Kasper\\Downloads\\Agoritmiek\\.idea\\httpRequests\\2024-02-26T141655.200.json";
 
-    filePath = requestPath(); // TODO: change this to be more dynamic
+    filePath = requestPath(); // TODO: change this to be more dynamic and less work for the user
 
     // Read JSON data from file
     std::ifstream file(filePath);
@@ -88,7 +88,6 @@ int driverinfo::driver() {
 }
 
 void driverinfo::getTeam(std::string driver) {
-    htmlRequest request;
     std::replace(driver.begin(), driver.end(), ' ', '_'); // Replace spaces with underscores
     std::string url = "http://ergast.com/api/f1/drivers/" + driver + "/constructors.json"; // get the team of the driver and team country
     std::cout << "URL: " << url << std::endl;
@@ -96,7 +95,7 @@ void driverinfo::getTeam(std::string driver) {
     std::cout << response << std::endl;
 
     // Correct JSON for readability
-    std::string correctedJson = correctJson(response);
+    std::string correctedJson = correctJson.correctJson(response);
 
     std::ofstream fileSave("tempDriverTeam.json", std::ios::trunc);
     fileSave << correctedJson;
@@ -133,37 +132,6 @@ void driverinfo::getTeam(std::string driver) {
 
     file.close();
     remove("tempDriverTeam.json");
-}
-
-std::string driverinfo::correctJson(const std::string& input) {
-    std::istringstream stream(input);
-    std::ostringstream beautified;
-
-    int indentLevel = 0;
-    char ch;
-
-    while (stream.get(ch)) {
-        switch (ch) {
-            case '{':
-            case '[':
-                beautified << ch << "\n" << std::setw(++indentLevel * 2) << "";
-                break;
-            case '}':
-            case ']':
-                beautified << "\n" << std::setw(--indentLevel * 2) << "" << ch;
-                break;
-            case ',':
-                beautified << ch << "\n" << std::setw(indentLevel * 2) << "";
-                break;
-            case ':':
-                beautified << ": ";
-                break;
-            default:
-                beautified << ch;
-        }
-    }
-
-    return beautified.str();
 }
 
 int driverinfo::driverImage(std::string driver) {

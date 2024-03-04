@@ -4,6 +4,9 @@
 
 #ifndef WEEK2DEEL2_CIRCUITINFO_H
 #define WEEK2DEEL2_CIRCUITINFO_H
+#include "CorrectJson.h"
+#include "htmlRequest.h"
+
 #include <string>
 
 class CircuitInfo {
@@ -17,7 +20,9 @@ public:
     int circuitImage(std::string circuitC); // corrected circuit
 private:
     std::string getF1CircuitName(int circuitNr, int year);
-    static std::string correctJson(const std::string& input);
+private:
+    htmlRequest request;
+    CorrectJson correctJson;
 };
 
 
