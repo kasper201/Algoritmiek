@@ -47,8 +47,8 @@ int CircuitInfo::circuit() {
 
     // Parse JSON
     std::istringstream stream(data);
-    std::vector<std::string> circuit, country;
-    while(stream) {
+    std::vector<std::string> circuit, country, circuitLength;
+    while(stream) { // iterate through the JSON data
         std::string token;
         stream >> token;
         if(token == "\"circuitId\":") {
@@ -64,16 +64,21 @@ int CircuitInfo::circuit() {
         }
     }
     for(int i = 0; i < circuit.size(); i++) {
-        std::string correctedCircuit = correctCircuit(circuit[i]);
-        circuitImage(correctedCircuit);
+        circuitImage(getF1CircuitName(i, 2023));
 
-        std::string circuitLength = findCircuitLength(circuit[i]);
+        circuitLength.push_back(findCircuitLength(i, 2023));
+    }
+
+    for(int i = 0; i < circuit.size(); i++) {
+        std::cout << "Circuit: " << circuit[i] << std::endl;
+        std::cout << "Country: " << country[i] << std::endl;
+        std::cout << "Circuit length: " << circuitLength[i] << std::endl;
     }
 
     return 0;
 }
 
-std::string CircuitInfo::findInHtml(std::string html) {
+std::string CircuitInfo::findInHtml(std::string html) { // find the length of the circuit in the html page of the circuit on the F1 website
     std::string extracted_data;
     // Find the position of the starting and ending substrings
     size_t start_pos = html.find("<p class=\"f1-bold--stat\">");
@@ -103,9 +108,32 @@ std::string capitaliseFirstLetter(const std::string& input) {
     }
 }
 
-std::string CircuitInfo::findCircuitLength(std::string circuitId) { // TODO: circuits are not standardised on the F1 website
-    std::string capitalisedId = capitaliseFirstLetter(circuitId);
-    std::string circuitUrl = "https://www.formula1.com/en/racing/2023/" + capitalisedId + "/Circuit.html";
+std::string CircuitInfo::getF1CircuitName(int circuitNr, int year)
+{
+    std::string circuitName;
+    std::string url = "https://www.formula1.com/en/racing/" + std::to_string(year) + ".html";
+    std::string html = getRequest(url);
+    //std::cout << "Response: " << html << std::endl;
+
+    size_t start_pos = 0;
+    size_t end_pos = 0;
+    int i = 0;
+    while(i <= circuitNr + 1) // + 1 because the first circuit is testing
+    {
+        start_pos = html.find("<a href=\"/en/racing/" + std::to_string(year) + "/", end_pos);
+        end_pos = html.find(".html\"", start_pos);
+        circuitName = html.substr(start_pos + sizeof("<a href=\"/en/racing/2023/") - 1, end_pos - (start_pos + sizeof("<a href=\"/en/racing/2023/") - 1)); // 2023 can be used here since it doesn't matter for the length
+        i++;
+    }
+
+    return circuitName;
+}
+
+std::string CircuitInfo::findCircuitLength(int circuitNr, int year) {
+    std::cout << "Circuit number: " << circuitNr << std::endl;
+    std::string circuitName = getF1CircuitName(circuitNr, year);
+    std::cout << "Circuit name: " << circuitName << std::endl;
+    std::string circuitUrl = "https://www.formula1.com/en/racing/2023/" + circuitName + "/Circuit.html";
     std::string html = getRequest(circuitUrl);
     std::cout << "Circuit URL: " << circuitUrl << std::endl;
 
