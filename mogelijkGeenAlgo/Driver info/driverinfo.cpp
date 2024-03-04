@@ -10,14 +10,6 @@
 #include <curl/curl.h>
 #include <algorithm>
 
-std::string requestPath()
-{
-    std::string path;
-    std::cout << "Enter the path to the JSON file with driver info: ";
-    std::cin >> path;
-    return path;
-}
-
 driverinfo::driverinfo()
 {
 }
@@ -26,16 +18,23 @@ driverinfo::~driverinfo()
 {
 }
 
-int driverinfo::driver() {
-    // Specify the path to your JSON file
-    std::string filePath = "C:\\Users\\Kasper\\Downloads\\Agoritmiek\\.idea\\httpRequests\\2024-02-26T141655.200.json";
+int driverinfo::driver(int year) {
+    this->year = year;
+    std::string url = "https://ergast.com/api/f1/2023/drivers.json";
+    std::string response = request.getRequest(url);
+    std::cout << "Response: " << response << std::endl;
 
-    filePath = requestPath(); // TODO: change this to be more dynamic and less work for the user
+    // Correct JSON for readability
+    std::string correctedJson = correctJson.correctJson(response);
+
+    std::ofstream fileSave("tempDriver.json", std::ios::trunc);
+    fileSave << correctedJson;
+    fileSave.close();
 
     // Read JSON data from file
-    std::ifstream file(filePath);
+    std::ifstream file("tempDriver.json");
     if (!file.is_open()) {
-        std::cerr << "Error opening file: " << filePath << std::endl;
+        std::cerr << "Error opening file" << std::endl;
         return 1;
     }
 
@@ -135,7 +134,7 @@ void driverinfo::getTeam(std::string driver) {
 }
 
 int driverinfo::driverImage(std::string driver) {
-    std::string url = "https://media.formula1.com/content/dam/fom-website/drivers/2024Drivers/" + driver + ".jpg.img.1920.medium.jpg/1708344264039.jpg"; // TODO: possibly change this to be more dynamic with the years
+    std::string url = "https://media.formula1.com/content/dam/fom-website/drivers/" + std::to_string(year) + "Drivers/" + driver + ".jpg.img.1920.medium.jpg/1708344264039.jpg";
     getImage image;
     image.getTheImage(url, driver);
     return 0;

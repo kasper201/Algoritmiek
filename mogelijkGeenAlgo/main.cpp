@@ -39,8 +39,9 @@ int main() {
     driverinfo driverinfo;
     CircuitInfo circuitInfo;
     Results results;
-    //driverinfo.driver();
-    //circuitInfo.circuit();
-    results.results(2023, 9);
+    int year = 2023;
+    driverinfo.driver(year);
+    circuitInfo.circuit(year);
+    results.results(year, 9);
     return 0;
 }

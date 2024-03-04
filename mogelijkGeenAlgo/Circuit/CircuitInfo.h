@@ -13,10 +13,9 @@ class CircuitInfo {
 public:
     CircuitInfo();
     ~CircuitInfo();
-    int circuit();
+    int circuit(int year);
     std::string findInHtml(std::string html);
     std::string findCircuitLength(int circuitNr, int year);
-    std::string correctCircuit(const std::string& input);
     int circuitImage(std::string circuitC); // corrected circuit
 private:
     std::string getF1CircuitName(int circuitNr, int year);

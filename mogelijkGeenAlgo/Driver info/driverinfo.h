@@ -16,7 +16,7 @@ class driverinfo {
 public:
     driverinfo();
     ~driverinfo();
-    int driver();
+    int driver(int year);
 private:
     void getTeam(std::string driver);
     int driverImage(std::string driver);
@@ -25,6 +25,7 @@ private:
     std::map<std::string, std::vector<std::string>> teams;
     htmlRequest request;
     CorrectJson correctJson;
+    int year;
 };
 
 

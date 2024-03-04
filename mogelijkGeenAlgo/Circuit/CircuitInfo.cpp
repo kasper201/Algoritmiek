@@ -21,7 +21,7 @@ CircuitInfo::~CircuitInfo() {
 
 }
 
-int CircuitInfo::circuit() {
+int CircuitInfo::circuit(int year) {
     std::string url = "https://ergast.com/api/f1/2023/circuits.json";
     std::string response = request.getRequest(url);
     std::cout << "Response: " << response << std::endl;
@@ -62,9 +62,9 @@ int CircuitInfo::circuit() {
         }
     }
     for(int i = 0; i < circuit.size(); i++) {
-        circuitImage(getF1CircuitName(i, 2023));
+        circuitImage(getF1CircuitName(i, year));
 
-        circuitLength.push_back(findCircuitLength(i, 2023));
+        circuitLength.push_back(findCircuitLength(i, year));
     }
 
     for(int i = 0; i < circuit.size(); i++) {
@@ -125,12 +125,6 @@ std::string CircuitInfo::findCircuitLength(int circuitNr, int year) {
     std::cout << "Circuit URL: " << circuitUrl << std::endl;
 
     return findInHtml(html);
-}
-
-std::string CircuitInfo::correctCircuit(const std::string& input) { // function to replace spaces with underscores
-    std::string output = input;
-    std::replace(output.begin(), output.end(), ' ', '_');
-    return output;
 }
 
 int CircuitInfo::circuitImage(std::string circuit) {
